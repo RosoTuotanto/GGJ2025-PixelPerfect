@@ -96,7 +96,7 @@ local function onKeyEvent( event )
 
 				if gameState == "normal" then
 					dialogueStart()
-				else
+				elseif gameState == "dialogue" then
 					dialogueEnd()
 				end
 				--print(gameState)
