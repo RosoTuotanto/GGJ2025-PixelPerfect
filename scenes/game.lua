@@ -5,6 +5,7 @@ local scene = composer.newScene()
 
 -- Common plugins, modules, libraries & classes.
 local screen = require("classes.screen")
+local camera = require("classes.camera")
 local physics = require( "physics" )
 local dialogueData = require("data.dialogue")
 local loadsave, savedata
@@ -30,21 +31,18 @@ local function moveCharacter()
 	-- See if one of the selected action buttons is down and move the player.
 	if action["a"] or action["left"] then
 		player:translate( -moveSpeed, 0 )
-		groupLevel:translate( moveSpeed, 0 )
 	end
 	if action["d"] or action["right"] then
 		player:translate( moveSpeed, 0 )
-		groupLevel:translate( -moveSpeed, 0 )
 	end
 	if action["w"] or action["up"] then
 		player:translate( 0, -moveSpeed )
-		groupLevel:translate( 0, moveSpeed)
 	end
 	if action["s"] or action["down"] then
 		player:translate( 0, moveSpeed )
-		groupLevel:translate( 0, -moveSpeed)
 	end
 
+	camera.update()
 end
 
 
@@ -140,7 +138,7 @@ function scene:create( event )
 
 	physics.addBody( background, "static",
 		{
-			chain={ 
+			chain={
 				-background.width*0.5, -background.height*0.5,
 				background.width*0.5, -background.height*0.5,
 				background.width*0.5, background.height*0.5,
@@ -172,7 +170,7 @@ function scene:create( event )
 	sceneGroup:insert( groupLevel)
 	sceneGroup:insert( groupUI)
 
-
+	camera.init( player, groupLevel )
 end
 
 ---------------------------------------------------------------------------
