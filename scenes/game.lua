@@ -11,12 +11,44 @@ local loadsave, savedata
 
 -- Forward declarations & variables.
 
+local player
+local action = {}
+local moveSpeed = 5
+
 
 ---------------------------------------------------------------------------
 
 -- Functions.
 
+local function moveCharacter()
 
+	-- See if one of the selected action buttons is down and move the player.
+	if action["a"] or action["left"] then
+		player:translate( -moveSpeed, 0 )
+
+	end
+	if action["d"] or action["right"] then
+		player:translate( moveSpeed, 0 )
+
+	end
+	if action["w"] or action["up"] then
+		player:translate( 0, -moveSpeed )
+
+	end
+	if action["s"] or action["down"] then
+		player:translate( 0, moveSpeed )
+
+	end
+end
+
+local function onKeyEvent( event )
+	if event.phase == "down" then
+		action[event.keyName] = true
+
+	else
+		action[event.keyName] = false
+	end
+end
 ---------------------------------------------------------------------------
 
 function scene:create( event )
@@ -39,6 +71,18 @@ function scene:create( event )
 	end
 
 
+	local background = display.newRect( sceneGroup, display.contentCenterX, display.contentCenterY, 5500, 5500 )
+	background.fill.effect = "generator.checkerboard"
+
+	background.fill.effect.color1 = { 0.8, 0, 0.2, 1 }
+	background.fill.effect.color2 = { 0.2, 0.2, 0.2, 1 }
+	background.fill.effect.xStep = 32
+	background.fill.effect.yStep = 32
+
+	player = display.newRect( sceneGroup, display.contentCenterX, display.contentCenterY, 55, 55 )
+
+	player:setFillColor( 1, 0, 1, 1 )
+
 
 
 end
@@ -55,7 +99,8 @@ function scene:show( event )
 		end
 
 	elseif event.phase == "did" then
-
+		Runtime:addEventListener( "enterFrame", moveCharacter )
+		Runtime:addEventListener( "key", onKeyEvent )
 
 	end
 end
