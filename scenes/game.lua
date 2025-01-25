@@ -71,6 +71,25 @@ local function dialogueStart()
 		print(key, value)
 	end
 
+
+	dialogueImage = display.newImageRect( groupUI, data.image, 960, 640 )
+	dialogueImage.x = screen.centerX +300
+	dialogueImage.y = screen.centerY
+
+	dialogueBox = display.newImageRect( groupUI, "assets/images/ui/puhekupla.png", 937, 695 )
+	dialogueBox.x = screen.centerX
+	dialogueBox.y = screen.centerY
+
+	dialogueText = display.newText({
+			parent = groupUI,
+			text = data.text,
+			x = screen.centerX,
+			y = screen.centerY,
+			width = screen.width - 60,
+			font = "assets/fonts/MedodicaRegular.otf",
+			fontSize = 24,
+			align = "center"
+		})
 end
 
 local function dialogueEnd()

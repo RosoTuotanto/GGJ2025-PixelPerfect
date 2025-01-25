@@ -1,11 +1,11 @@
 return {
     ["characterName1"] = {
-        image = "someImage.png",
+        image = "assets/images/ui/yksinainen_vanhus.png",
         text = "Kaikki dialogi.",
     },
 
     ["characterName2"] = {
-        image = "someImage.png",
+        image = "assets/images/ui/yksinainen_vanhus.png",
         text = "Kaikki dialogi.",
     },
 }
