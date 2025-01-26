@@ -23,6 +23,7 @@ local moveSpeed = 10
 local groupLevel = display.newGroup()
 local gameState = "normal"
 local targetID
+local dialogueEndCount = 0
 
 -------------------------------------------------
 --MUSAT
@@ -39,64 +40,31 @@ local viewNormal, viewGreyscale
 local viewMask = graphics.newMask( "assets/images/mask.png" )
 local viewMaskScale = 2
 local greyscaleAlpha = 1
+
 -- Kuinka lähellä hahmoa pitää olla, jotta se voi alkaa näkymään.
 local characterDistanceInvisible = 128
--- Kun hahmo alkaa näkymään, niin montako pikseliä lähemmäs pitää kulkea, jotta se näkyy kokonaan.
-local characterDistanceFullyVisible = 32
+-- Kuinka lähellä hahmoa pitää olla, jotta se näkyy täysin.
+local characterDistanceFullyVisible = 90
 
-local backgroundMusic1 = audio.loadStream("assets/audio/biano1.ogg")
-local backgroundMusic2 = audio.loadStream("assets/audio/biano2.ogg")
-local backgroundMusic3 = audio.loadStream("assets/audio/biano3.ogg")
-local backgroundMusic4 = audio.loadStream("assets/audio/biano4.ogg")
-local backgroundMusic5 = audio.loadStream("assets/audio/biano5.ogg")
 
+local bgm = {
+	audio.loadStream("assets/audio/biano1.ogg"),
+	audio.loadStream("assets/audio/biano2.ogg"),
+	audio.loadStream("assets/audio/biano3.ogg"),
+	audio.loadStream("assets/audio/biano4.ogg"),
+	audio.loadStream("assets/audio/biano5.ogg")
+}
+
+-- Testaillessa, aseta kaikki äänet pois:
+audio.setVolume( 0 )
+
+-- Asetetaan taustamusiikin äänenvoimakkuus.
 audio.setVolume( 0.2, { channel=1 } )
-audio.setVolume( 0.0, { channel=2 } )
-audio.setVolume( 0.0, { channel=3 } )
-audio.setVolume( 0.0, { channel=4 } )
-audio.setVolume( 0.0, { channel=5 } )
---audio.play( backgroundMusic1 )
-
---[[
-audio.play( backgroundMusic1,{
-	channel = 1, -- Määritetään erikseen taustamusiikin kanava.
-	loops = -1, -- Laitetaan kappale soimaan ikuisesti.
-	fadein = 3000, -- Nostetaan äänet 3s kuluessa nollasta halutulle tasolle.
-	 onComplete = callbackListener
-})
-
-audio.play( backgroundMusic2,{
-	channel = 2, -- Määritetään erikseen taustamusiikin kanava.
-	loops = -1, -- Laitetaan kappale soimaan ikuisesti.
-	fadein = 3000, -- Nostetaan äänet 3s kuluessa nollasta halutulle tasolle.
-	-- onComplete = callbackListener
-})
-
-audio.play( backgroundMusic3,{
-	channel = 3, -- Määritetään erikseen taustamusiikin kanava.
-	loops = -1, -- Laitetaan kappale soimaan ikuisesti.
-	fadein = 3000, -- Nostetaan äänet 3s kuluessa nollasta halutulle tasolle.
-	-- onComplete = callbackListener
-})
-
-audio.play( backgroundMusic4,{
-	channel = 4, -- Määritetään erikseen taustamusiikin kanava.
-	loops = -1, -- Laitetaan kappale soimaan ikuisesti.
-	fadein = 3000, -- Nostetaan äänet 3s kuluessa nollasta halutulle tasolle.
-	-- onComplete = callbackListener
-})
-
-
-audio.play( backgroundMusic5,{
-	channel = 5, -- Määritetään erikseen taustamusiikin kanava.
-	loops = -1, -- Laitetaan kappale soimaan ikuisesti.
-	fadein = 3000, -- Nostetaan äänet 3s kuluessa nollasta halutulle tasolle.
-	-- onComplete = callbackListener
-})
-
---]]
-
-
+audio.setVolume( 0.2, { channel=2 } )
+audio.setVolume( 0.2, { channel=3 } )
+audio.setVolume( 0.2, { channel=4 } )
+audio.setVolume( 0.2, { channel=5 } )
+--audio.play( bgm[1] )
 
 
 
@@ -146,10 +114,18 @@ local function updateView()
 
 	for i = 1, #character do
 		local distance = math.sqrt( (player.x-character[i].x)^2 + (player.y-character[i].y)^2 )
-		-- print( distance )
-		-- characterDistanceInvisible
-		-- characterDistanceFullyVisible
-		character[i].alpha = 0.5
+
+		if distance < characterDistanceFullyVisible then
+			character[i].alpha = 1
+
+		elseif distance < characterDistanceInvisible then
+			local alpha = 1 - (distance-characterDistanceFullyVisible)/(characterDistanceInvisible-characterDistanceFullyVisible)
+
+			character[i].alpha = alpha
+		else
+			character[i].alpha = 0
+
+		end
 	end
 end
 
@@ -200,6 +176,16 @@ local function onLocalCollision( self, event )
 	end
 end
 
+
+local function gameover()
+	Runtime:removeEventListener("enterFrame", moveCharacter)
+	gameState = "gameover"
+	stopView()
+
+	print( "Game over!" )
+end
+
+
 local dialogueProgress = {}
 
 local function dialogueStart()
@@ -210,24 +196,27 @@ local function dialogueStart()
 	local data = dialogueData[targetID]
 	if not dialogueProgress[targetID] then
 		dialogueProgress[targetID] = 0
+
+		local availableChannel = audio.findFreeChannel( 10 )
+
 		if targetID == "characterName1" then --eri hahmoille äänet aina dialogin alkuun.
-			audio.play( sfxPappa )
+			audio.play( sfxPappa, { channel=availableChannel } )
 		end
 
 		if targetID == "characterName2" then --eri hahmoille äänet aina dialogin alkuun.
-			audio.play( sfxYhisa )
+			audio.play( sfxYhisa, { channel=availableChannel } )
 		end
 
 		if targetID == "characterName3" then --eri hahmoille äänet aina dialogin alkuun.
-			audio.play( sfxLapsi )
+			audio.play( sfxLapsi, { channel=availableChannel } )
 		end
 
 		if targetID == "characterName4" then --eri hahmoille äänet aina dialogin alkuun.
-			audio.play( sfxTeini )
+			audio.play( sfxTeini, { channel=availableChannel } )
 		end
 
 		if targetID == "characterName5" then --eri hahmoille äänet aina dialogin alkuun.
-			audio.play( sfxAikunen )
+			audio.play( sfxAikunen, { channel=availableChannel } )
 		end
 
 	end
@@ -256,10 +245,31 @@ end
 
 local function dialogueEnd()
 	gameState = "normal"
-	audio.play( sfxMeow )
 	Runtime:addEventListener("enterFrame", moveCharacter)
 
+	local availableChannel = audio.findFreeChannel( 10 )
+	audio.play( sfxMeow, { channel=availableChannel } )
 
+	-- Pidetään kirjaa siitä, kuinka monta dialogia on käyty läpi.
+	dialogueEndCount = dialogueEndCount + 1
+
+	local fadeTime = 3000
+
+	-- print( dialogueEndCount )
+	audio.fadeOut( { channel=dialogueEndCount, time=fadeTime } )
+
+	greyscaleAlpha = greyscaleAlpha - 0.2
+	if dialogueEndCount >= 5 then
+		gameover()
+	end
+
+	-- Asetetaan seuraava taustamusiikki soimaan.
+	audio.play( bgm[dialogueEndCount+1],{
+		channel = dialogueEndCount+1, -- Määritetään erikseen taustamusiikin kanava.
+		loops = -1, -- Laitetaan kappale soimaan ikuisesti.
+		fadein = fadeTime, -- Nostetaan äänet 3s kuluessa nollasta halutulle tasolle.
+		-- onComplete = callbackListener
+	})
 end
 
 
@@ -296,6 +306,11 @@ local function onKeyEvent( event )
 		action[event.keyName] = false
 	end
 end
+
+
+
+
+
 ---------------------------------------------------------------------------
 
 function scene:create( event )
@@ -428,7 +443,7 @@ function scene:create( event )
 	physics.addBody( tree2, "static",
 		{radius = tree2.width*0.5}
 	)
-	
+
 	local tree3 = display.newImageRect( groupLevel,"assets/images/fixedpictures/Puu.png", 64, 64 )
 	--character[5]:setFillColor( 0.4, 1, 1, 1 )
 	tree3.x = screen.centerX -600
@@ -594,7 +609,7 @@ function scene:create( event )
 	sceneGroup:insert( groupLevel)
 
 	camera.init( player, groupLevel )
-	--Runtime:addEventListener( "enterFrame", updateView )
+	Runtime:addEventListener( "enterFrame", updateView )
 	-- stopView()
 end
 
@@ -613,6 +628,12 @@ function scene:show( event )
 		Runtime:addEventListener( "enterFrame", moveCharacter )
 		Runtime:addEventListener( "key", onKeyEvent )
 
+		audio.play( bgm[1],{
+			channel = 1, -- Määritetään erikseen taustamusiikin kanava.
+			loops = -1, -- Laitetaan kappale soimaan ikuisesti.
+			fadein = 3000, -- Nostetaan äänet 3s kuluessa nollasta halutulle tasolle.
+			--  onComplete = callbackListener
+		})
 	end
 end
 
