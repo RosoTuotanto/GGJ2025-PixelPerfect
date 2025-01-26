@@ -18,9 +18,9 @@ local loadsave, savedata
 local player
 local dialogueImage, dialogueText, dialogueBox
 local action = {}
+local character = {}
 local moveSpeed = 10
 local groupLevel = display.newGroup()
-local groupUI = display.newGroup()
 local gameState = "normal"
 local targetID
 
@@ -39,6 +39,10 @@ local viewNormal, viewGreyscale
 local viewMask = graphics.newMask( "assets/images/mask.png" )
 local viewMaskScale = 2
 local greyscaleAlpha = 1
+-- Kuinka lähellä hahmoa pitää olla, jotta se voi alkaa näkymään.
+local characterDistanceInvisible = 128
+-- Kun hahmo alkaa näkymään, niin montako pikseliä lähemmäs pitää kulkea, jotta se näkyy kokonaan.
+local characterDistanceFullyVisible = 32
 
 local backgroundMusic1 = audio.loadStream("assets/audio/biano1.ogg")
 local backgroundMusic2 = audio.loadStream("assets/audio/biano2.ogg")
@@ -139,6 +143,14 @@ local function updateView()
 	viewNormal.maskScaleX = viewMaskScale*scaleOffset
 	viewNormal.maskScaleY = viewMaskScale*scaleOffset
 	viewGreyscale.alpha = greyscaleAlpha
+
+	for i = 1, #character do
+		local distance = math.sqrt( (player.x-character[i].x)^2 + (player.y-character[i].y)^2 )
+		-- print( distance )
+		-- characterDistanceInvisible
+		-- characterDistanceFullyVisible
+		character[i].alpha = 0.5
+	end
 end
 
 -- Stop and remove the view effects.
@@ -146,6 +158,10 @@ local function stopView()
 	Runtime:removeEventListener( "enterFrame", updateView )
 	display.remove( viewGreyscale )
 	display.remove( viewNormal )
+
+	for i = 1, #character do
+		character[i].alpha = 0
+	end
 end
 
 
@@ -329,55 +345,54 @@ function scene:create( event )
 	player:addEventListener( "collision" )
 
 
-	local characterA = display.newImageRect( groupLevel, "assets/images/vanhussprite.PNG", 32, 64 )
-	--characterA:setFillColor( 1, 0, 1, 1 )
-	characterA.x = screen.centerX -200
-	characterA.y = screen.centerY
-	physics.addBody( characterA, "static",
-		{radius = characterA.width*0.5},
-		{radius = characterA.width*3, isSensor=true}
+	character[1] = display.newImageRect( groupLevel, "assets/images/vanhussprite.PNG", 32, 64 )
+	--character[1]:setFillColor( 1, 0, 1, 1 )
+	character[1].x = screen.centerX -200
+	character[1].y = screen.centerY
+	physics.addBody( character[1], "static",
+		{radius = character[1].width*0.5},
+		{radius = character[1].width*3, isSensor=true}
 
 	)
-	characterA.id = "characterName1"
+	character[1].id = "characterName1"
 
-	local characterB = display.newImageRect( groupLevel, "assets/images/isasprite.PNG", 32, 64 )
-	--characterB:setFillColor( 0.4, 1, 1, 1 )
-	characterB.x = screen.centerX +200
-	characterB.y = screen.centerY -550
-	physics.addBody( characterB, "static",
-		{radius = characterB.width*0.5},
-		{radius = characterB.width*3, isSensor=true}
-
-	)
-	characterB.id = "characterName2"
-
-	local characterC = display.newImageRect( groupLevel, "assets/images/lapsisprite.PNG", 32, 64 )
-	--characterC:setFillColor( 0.4, 1, 1, 1 )
-	characterC.x = screen.centerX -1200
-	characterC.y = screen.centerY -600
-	physics.addBody( characterC, "static",
-		{radius = characterC.width*0.5},
-		{radius = characterC.width*3, isSensor=true}
+	character[2] = display.newImageRect( groupLevel, "assets/images/isasprite.PNG", 32, 64 )
+	--character[2]:setFillColor( 0.4, 1, 1, 1 )
+	character[2].x = screen.centerX +200
+	character[2].y = screen.centerY -550
+	physics.addBody( character[2], "static",
+		{radius = character[2].width*0.5},
+		{radius = character[2].width*3, isSensor=true}
 
 	)
-	characterC.id = "characterName3"
+	character[2].id = "characterName2"
 
-
-
-	local characterE = display.newImageRect( groupLevel,"assets/images/aikuinensprite.PNG", 32, 64 )
-	--characterE:setFillColor( 0.4, 1, 1, 1 )
-	characterE.x = screen.centerX -1000
-	characterE.y = screen.centerY -200
-	physics.addBody( characterE, "static",
-		{radius = characterE.width*0.5},
-		{radius = characterE.width*3, isSensor=true}
+	character[3] = display.newImageRect( groupLevel, "assets/images/lapsisprite.PNG", 32, 64 )
+	--character[3]:setFillColor( 0.4, 1, 1, 1 )
+	character[3].x = screen.centerX -1200
+	character[3].y = screen.centerY -600
+	physics.addBody( character[3], "static",
+		{radius = character[3].width*0.5},
+		{radius = character[3].width*3, isSensor=true}
 
 	)
-	characterE.id = "characterName5"
+	character[3].id = "characterName3"
+
+
+	character[5] = display.newImageRect( groupLevel,"assets/images/aikuinensprite.PNG", 32, 64 )
+	--character[5]:setFillColor( 0.4, 1, 1, 1 )
+	character[5].x = screen.centerX -1000
+	character[5].y = screen.centerY -200
+	physics.addBody( character[5], "static",
+		{radius = character[5].width*0.5},
+		{radius = character[5].width*3, isSensor=true}
+
+	)
+	character[5].id = "characterName5"
 
 
 	local characterF = display.newImageRect( groupLevel,"assets/images/Vahtikoira.PNG", 38, 42 )
-	--characterE:setFillColor( 0.4, 1, 1, 1 )
+	--character[5]:setFillColor( 0.4, 1, 1, 1 )
 	characterF.x = screen.centerX -800
 	characterF.y = screen.centerY -800
 	physics.addBody( characterF, "static",
@@ -385,7 +400,7 @@ function scene:create( event )
 	)
 
 	local tree1 = display.newImageRect( groupLevel,"assets/images/fixedpictures/Puu.PNG", 64, 64 )
-	--characterE:setFillColor( 0.4, 1, 1, 1 )
+	--character[5]:setFillColor( 0.4, 1, 1, 1 )
 	tree1.x = screen.centerX -700
 	tree1.y = screen.centerY -800
 	physics.addBody( tree1, "static",
@@ -393,88 +408,88 @@ function scene:create( event )
 	)
 
 	local talo1 = display.newImageRect( groupLevel,"assets/images/fixedpictures/ORANSSItalo.PNG", 513, 256)
-	--characterE:setFillColor( 0.4, 1, 1, 1 )
+	--character[5]:setFillColor( 0.4, 1, 1, 1 )
 	talo1.x = screen.centerX -1150
 	talo1.y = screen.centerY -900
 	physics.addBody( talo1, "static"
 	)
 
 	local talo2 = display.newImageRect( groupLevel,"assets/images/fixedpictures/VAALEEtalo.PNG", 513, 256)
-	--characterE:setFillColor( 0.4, 1, 1, 1 )
+	--character[5]:setFillColor( 0.4, 1, 1, 1 )
 	talo2.x = screen.centerX -150
 	talo2.y = screen.centerY -900
 	physics.addBody( talo2, "static"
 	)
 
 	local talo3 = display.newImageRect( groupLevel,"assets/images/fixedpictures/VAALEEtalo.PNG", 513, 256)
-	--characterE:setFillColor( 0.4, 1, 1, 1 )
+	--character[5]:setFillColor( 0.4, 1, 1, 1 )
 	talo3.x = screen.centerX +200
 	talo3.y = screen.centerY
 	physics.addBody( talo3, "static"
 	)
 
 	local talo4 = display.newImageRect( groupLevel,"assets/images/fixedpictures/ORANSSItalo.PNG", 513, 256)
-	--characterE:setFillColor( 0.4, 1, 1, 1 )
+	--character[5]:setFillColor( 0.4, 1, 1, 1 )
 	talo4.x = screen.centerX +150
 	talo4.y = screen.centerY -900
 	physics.addBody( talo4, "static"
 	)
 	local talo6 = display.newImageRect( groupLevel,"assets/images/fixedpictures/VIHREEtalo.PNG", 513, 256)
-	--characterE:setFillColor( 0.4, 1, 1, 1 )
+	--character[5]:setFillColor( 0.4, 1, 1, 1 )
 	talo6.x = screen.centerX -450
 	talo6.y = screen.centerY -500
 	physics.addBody( talo6, "static"
 	)
 	local talo5 = display.newImageRect( groupLevel,"assets/images/fixedpictures/VAALEEtalo.PNG", 513, 256)
-	--characterE:setFillColor( 0.4, 1, 1, 1 )
+	--character[5]:setFillColor( 0.4, 1, 1, 1 )
 	talo5.x = screen.centerX -450
 	talo5.y = screen.centerY -300
 	physics.addBody( talo5, "static"
 	)
 
 	local talo7 = display.newImageRect( groupLevel,"assets/images/fixedpictures/simppelitaloSININEN.PNG", 336, 256)
-	--characterE:setFillColor( 0.4, 1, 1, 1 )
+	--character[5]:setFillColor( 0.4, 1, 1, 1 )
 	talo7.x = screen.centerX +150
 	talo7.y = screen.centerY -400
 	physics.addBody( talo7, "static"
 	)
 
 	local talo7 = display.newImageRect( groupLevel,"assets/images/fixedpictures/simppelitaloSININEN.PNG", 336, 256)
-	--characterE:setFillColor( 0.4, 1, 1, 1 )
+	--character[5]:setFillColor( 0.4, 1, 1, 1 )
 	talo7.x = screen.centerX -1250
 	talo7.y = screen.centerY +50
 	physics.addBody( talo7, "static"
 	)
 
 	local talo7 = display.newImageRect( groupLevel,"assets/images/fixedpictures/simppelitaloSININEN.png", 336, 256)
-	--characterE:setFillColor( 0.4, 1, 1, 1 )
+	--character[5]:setFillColor( 0.4, 1, 1, 1 )
 	talo7.x = screen.centerX -1250
 	talo7.y = screen.centerY +50
 	physics.addBody( talo7, "static"
 	)
 
-		local characterD = display.newImageRect( groupLevel, "assets/images/teinisprite.png", 32, 64 )
-	--characterD:setFillColor( 0.4, 1, 1, 1 )
+	character[4] = display.newImageRect( groupLevel, "assets/images/teinisprite.png", 32, 64 )
+	--character[4]:setFillColor( 0.4, 1, 1, 1 )
 	--display.contentCenterX -1200, display.contentCenterY +200,
-	characterD.x = screen.centerX -1200
-	characterD.y = screen.centerY +200
-	physics.addBody( characterD, "static",
-		{radius = characterD.width*0.5},
-		{radius = characterD.width*3, isSensor=true}
+	character[4].x = screen.centerX -1200
+	character[4].y = screen.centerY +200
+	physics.addBody( character[4], "static",
+		{radius = character[4].width*0.5},
+		{radius = character[4].width*3, isSensor=true}
 
 	)
-	characterD.id = "characterName4"
+	character[4].id = "characterName4"
 
-	
+
 	local lampi1 = display.newImageRect( groupLevel,"assets/images/fixedpictures/Lampi_ISO.png", 272*2, 77*2)
-	--characterE:setFillColor( 0.4, 1, 1, 1 )
+	--character[5]:setFillColor( 0.4, 1, 1, 1 )
 	lampi1.x = screen.centerX -520
 	lampi1.y = screen.centerY +50
 	physics.addBody( lampi1, "static"
 	)
 
 	local lampi2 = display.newImageRect( groupLevel,"assets/images/fixedpictures/Lampi_PIENI.png", 272*2, 77*2)
-	--characterE:setFillColor( 0.4, 1, 1, 1 )
+	--character[5]:setFillColor( 0.4, 1, 1, 1 )
 	lampi2.x = screen.centerX -520
 	lampi2.y = screen.centerY +50
 	physics.addBody( lampi2, "static"
@@ -509,13 +524,12 @@ function scene:create( event )
 
 	for i = 1, #treeData do
 		tree[i] = createTree( treeData[i].x, treeData[i].y )
-	end 
+	end
 	]]--
 
 
 
 	sceneGroup:insert( groupLevel)
-	sceneGroup:insert( groupUI)
 
 	camera.init( player, groupLevel )
 	Runtime:addEventListener( "enterFrame", updateView )
