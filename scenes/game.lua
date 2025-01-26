@@ -93,6 +93,13 @@ local function updateView()
 	display.remove( viewGreyscale )
 	display.remove( viewNormal )
 
+	-- Hide the dialogue UI so that they won't be affected by the view effects.
+	if dialogueImage then
+		dialogueImage.isVisible = false
+		dialogueBox.isVisible = false
+		dialogueText.isVisible = false
+	end
+
 	-- Create the greyscale view first so that it'll be behind the normal view,
 	-- but don't apply the effect until the view has been copied/captured.
 	viewGreyscale = display.captureScreen( groupLevel )
@@ -102,6 +109,15 @@ local function updateView()
 	viewNormal.x, viewNormal.y = screen.centerX, screen.centerY
 
 	viewGreyscale.fill.effect = "filter.grayscale"
+
+	if dialogueImage then
+		dialogueImage.isVisible = true
+		dialogueBox.isVisible = true
+		dialogueText.isVisible = true
+		dialogueImage:toFront()
+		dialogueBox:toFront()
+		dialogueText:toFront()
+	end
 
 	-- Hide most of the "normal view" behind a mask.
 	local scaleOffset = math.random( 100, 103 )*0.01
@@ -187,16 +203,16 @@ local function dialogueStart()
 	end
 	dialogueProgress[targetID] = dialogueProgress[targetID] +1
 
-	dialogueImage = display.newImageRect( groupUI, data.image, 960, 640 )
+	-- Dialogue objects aren't inserted into any group due to view effect and draw order issues.
+	dialogueImage = display.newImageRect( data.image, 960, 640 )
 	dialogueImage.x = screen.centerX +300
 	dialogueImage.y = screen.centerY
 
-	dialogueBox = display.newImageRect( groupUI, "assets/images/ui/puhekupla_sininen.png", 937, 695 )
+	dialogueBox = display.newImageRect( "assets/images/ui/puhekupla_sininen.png", 937, 695 )
 	dialogueBox.x = screen.centerX
 	dialogueBox.y = screen.centerY
 
 	dialogueText = display.newText({
-		parent = groupUI,
 		text = data.text[dialogueProgress[targetID]],
 		x = screen.centerX,
 		y = screen.centerY +200,
@@ -234,6 +250,9 @@ local function onKeyEvent( event )
 				display.remove(dialogueImage)
 				display.remove(dialogueText)
 				display.remove(dialogueBox)
+				dialogueImage = nil
+				dialogueText = nil
+				dialogueBox = nil
 
 				if (gameState == "normal" or gameState == "dialogue") and gotDialogue then
 					dialogueStart()
