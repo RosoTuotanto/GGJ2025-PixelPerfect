@@ -29,6 +29,11 @@ local sfxTeini = audio.loadSound("assets/audio/teini.wav" )
 local sfxYhisa = audio.loadSound("assets/audio/yh_dadi.wav" )
 local sfxAikunen = audio.loadSound("assets/audio/erotyty.wav" )
 
+-- Filtering/effect/masking variables.
+local viewNormal, viewGreyscale
+local viewMask = graphics.newMask( "assets/images/mask.png" )
+local viewMaskScale = 2
+local greyscaleAlpha = 1
 
 local backgroundMusic1 = audio.loadStream("assets/audio/savellajit.ogg")
 local backgroundMusic2 = audio.loadStream("assets/audio/")
@@ -80,6 +85,39 @@ audio.play( backgroundMusic5,{
 ---------------------------------------------------------------------------
 
 -- Functions.
+
+-- Apply a grayscale effect to the screen and reveal a small
+-- masked area around the player character normally.
+local function updateView()
+	-- Remove old views.
+	display.remove( viewGreyscale )
+	display.remove( viewNormal )
+
+	-- Create the greyscale view first so that it'll be behind the normal view,
+	-- but don't apply the effect until the view has been copied/captured.
+	viewGreyscale = display.captureScreen( groupLevel )
+	viewGreyscale.x, viewGreyscale.y = screen.centerX, screen.centerY
+
+	viewNormal = display.captureScreen( groupLevel )
+	viewNormal.x, viewNormal.y = screen.centerX, screen.centerY
+
+	viewGreyscale.fill.effect = "filter.grayscale"
+
+	-- Hide most of the "normal view" behind a mask.
+	local scaleOffset = math.random( 100, 103 )*0.01
+	viewNormal:setMask( viewMask )
+	viewNormal.maskScaleX = viewMaskScale*scaleOffset
+	viewNormal.maskScaleY = viewMaskScale*scaleOffset
+	viewGreyscale.alpha = greyscaleAlpha
+end
+
+-- Stop and remove the view effects.
+local function stopView()
+	Runtime:removeEventListener( "enterFrame", updateView )
+	display.remove( viewGreyscale )
+	display.remove( viewNormal )
+end
+
 
 local function moveCharacter()
 
@@ -330,6 +368,8 @@ function scene:create( event )
 	sceneGroup:insert( groupUI)
 
 	camera.init( player, groupLevel )
+	Runtime:addEventListener( "enterFrame", updateView )
+	-- stopView()
 end
 
 ---------------------------------------------------------------------------
