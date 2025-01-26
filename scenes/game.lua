@@ -347,8 +347,8 @@ function scene:create( event )
 
 	character[1] = display.newImageRect( groupLevel, "assets/images/vanhussprite.png", 32, 64 )
 	--character[1]:setFillColor( 1, 0, 1, 1 )
-	character[1].x = screen.centerX -200
-	character[1].y = screen.centerY
+	character[1].x = screen.centerX +200
+	character[1].y = screen.centerY -200
 	physics.addBody( character[1], "static",
 		{radius = character[1].width*0.5},
 		{radius = character[1].width*3, isSensor=true}
@@ -358,8 +358,8 @@ function scene:create( event )
 
 	character[2] = display.newImageRect( groupLevel, "assets/images/isasprite.png", 32, 64 )
 	--character[2]:setFillColor( 0.4, 1, 1, 1 )
-	character[2].x = screen.centerX +200
-	character[2].y = screen.centerY -550
+	character[2].x = screen.centerX +300
+	character[2].y = screen.centerY -650
 	physics.addBody( character[2], "static",
 		{radius = character[2].width*0.5},
 		{radius = character[2].width*3, isSensor=true}
@@ -394,17 +394,79 @@ function scene:create( event )
 	local characterF = display.newImageRect( groupLevel,"assets/images/Vahtikoira.png", 38, 42 )
 	--character[5]:setFillColor( 0.4, 1, 1, 1 )
 	characterF.x = screen.centerX -800
-	characterF.y = screen.centerY -800
+	characterF.y = screen.centerY -850
 	physics.addBody( characterF, "static",
 		{radius = characterF.width*0.5}
+	)
+
+	local aita1 = display.newImageRect( groupLevel,"assets/images/fixedpictures/Aita.png", 92, 42 )
+	--character[5]:setFillColor( 0.4, 1, 1, 1 )
+	aita1.x = screen.centerX -850
+	aita1.y = screen.centerY -810
+	physics.addBody( aita1, "static"
+	)
+
+	local aita2 = display.newImageRect( groupLevel,"assets/images/fixedpictures/Aita.png", 92, 42 )
+	--character[5]:setFillColor( 0.4, 1, 1, 1 )
+	aita2.x = screen.centerX -800
+	aita2.y = screen.centerY -810
+	physics.addBody( aita2, "static"
 	)
 
 	local tree1 = display.newImageRect( groupLevel,"assets/images/fixedpictures/Puu.png", 64, 64 )
 	--character[5]:setFillColor( 0.4, 1, 1, 1 )
 	tree1.x = screen.centerX -700
-	tree1.y = screen.centerY -800
+	tree1.y = screen.centerY -900
 	physics.addBody( tree1, "static",
 		{radius = tree1.width*0.5}
+	)
+
+	local tree2 = display.newImageRect( groupLevel,"assets/images/fixedpictures/Puu.png", 64, 64 )
+	--character[5]:setFillColor( 0.4, 1, 1, 1 )
+	tree2.x = screen.centerX -700
+	tree2.y = screen.centerY +200
+	physics.addBody( tree2, "static",
+		{radius = tree2.width*0.5}
+	)
+	
+	local tree3 = display.newImageRect( groupLevel,"assets/images/fixedpictures/Puu.png", 64, 64 )
+	--character[5]:setFillColor( 0.4, 1, 1, 1 )
+	tree3.x = screen.centerX -600
+	tree3.y = screen.centerY +250
+	physics.addBody( tree3, "static",
+		{radius = tree3.width*0.5}
+	)
+
+	local tree4 = display.newImageRect( groupLevel,"assets/images/fixedpictures/Puu.png", 64, 64 )
+	--character[5]:setFillColor( 0.4, 1, 1, 1 )
+	tree4.x = screen.centerX -500
+	tree4.y = screen.centerY +200
+	physics.addBody( tree4, "static",
+		{radius = tree4.width*0.5}
+	)
+
+	local tree5 = display.newImageRect( groupLevel,"assets/images/fixedpictures/Puu.png", 64, 64 )
+	--character[5]:setFillColor( 0.4, 1, 1, 1 )
+	tree5.x = screen.centerX -400
+	tree5.y = screen.centerY +250
+	physics.addBody( tree5, "static",
+		{radius = tree5.width*0.5}
+	)
+
+	local tree6 = display.newImageRect( groupLevel,"assets/images/fixedpictures/Puu.png", 64, 64 )
+	--character[5]:setFillColor( 0.4, 1, 1, 1 )
+	tree6.x = screen.centerX -300
+	tree6.y = screen.centerY +200
+	physics.addBody( tree6, "static",
+		{radius = tree6.width*0.5}
+	)
+
+	local tree7 = display.newImageRect( groupLevel,"assets/images/fixedpictures/Puu.png", 64, 64 )
+	--character[5]:setFillColor( 0.4, 1, 1, 1 )
+	tree7.x = screen.centerX -500
+	tree7.y = screen.centerY -850
+	physics.addBody( tree7, "static",
+		{radius = tree7.width*0.5}
 	)
 
 	local talo1 = display.newImageRect( groupLevel,"assets/images/fixedpictures/ORANSSItalo.png", 513, 256)
@@ -488,10 +550,10 @@ function scene:create( event )
 	physics.addBody( lampi1, "static"
 	)
 
-	local lampi2 = display.newImageRect( groupLevel,"assets/images/fixedpictures/Lampi_PIENI.png", 272*2, 77*2)
+	local lampi2 = display.newImageRect( groupLevel,"assets/images/fixedpictures/Lampi_PIENI.png", 125*2, 45*2)
 	--character[5]:setFillColor( 0.4, 1, 1, 1 )
-	lampi2.x = screen.centerX -520
-	lampi2.y = screen.centerY +50
+	lampi2.x = screen.centerX -1300
+	lampi2.y = screen.centerY -500
 	physics.addBody( lampi2, "static"
 	)
 
@@ -532,7 +594,7 @@ function scene:create( event )
 	sceneGroup:insert( groupLevel)
 
 	camera.init( player, groupLevel )
-	Runtime:addEventListener( "enterFrame", updateView )
+	--Runtime:addEventListener( "enterFrame", updateView )
 	-- stopView()
 end
 
