@@ -59,19 +59,19 @@ return {
     ["characterName4"] = {
         image = "assets/images/ui/stressaava_teini.png",
         text = {
-        "Oh shit, what to do? What the fuck do I do?",
-        "I'm so dead if they know that I failed again!",
-        "Shit. Should I just fucking flee?",
-        "Why can't I be as smart as they assume I am??",
-        "Why the hell should I know physics? Or chemistry?",
-        "Who needs them anyway? Can't I just play guitar and sing…",
-        "But you always seem to have the courage to say if you don't like something.",
-        "I wish I had the courage to tell my parents how I feel.",
-        "Or.. Maybe I have? Why not? What bad could happen?",
-        "They'd throw me out? I was already about to leave.",
-        "Yeah. Thanks. Or what do you care.",
-        "Take this anyway.",
-        "[The hooman gave you a carrot.]"
+            "Oh shit, what to do? What the fuck do I do?",
+            "I'm so dead if they know that I failed again!",
+            "Shit. Should I just fucking flee?",
+            "Why can't I be as smart as they assume I am??",
+            "Why the hell should I know physics? Or chemistry?",
+            "Who needs them anyway? Can't I just play guitar and sing…",
+            "But you always seem to have the courage to say if you don't like something.",
+            "I wish I had the courage to tell my parents how I feel.",
+            "Or.. Maybe I have? Why not? What bad could happen?",
+            "They'd throw me out? I was already about to leave.",
+            "Yeah. Thanks. Or what do you care.",
+            "Take this anyway.",
+            "[The hooman gave you a carrot.]"
         }
     
     },
@@ -90,7 +90,7 @@ return {
             "You cats prefer to wander alone, don't ya? How do you do it?",
             "Don't you feel anxious being by yourself? I wish I was that independent.",
             "Wait.. It's like mom used to tell me. When we were still in touch, that is.",
-            "\”Learn to be happy by yourself before you put a ring on your finger.\” ",
+            "”Learn to be happy by yourself before you put a ring on your finger.” ",
             "I wonder if I still have my whole life ahead of me",
             "if I just dare to open up my bubble. Oh, mom..",
             "Well, you take this, cutie. As I don't need to diet anymore.",

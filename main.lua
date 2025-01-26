@@ -23,7 +23,7 @@ local launchParams = {
 	-------------------------------------
 	-- debugMode sends prints to browser console on HTML5 platform, skips directly
 	-- to game, toggles on loadsave's error reporting and loads performance meter.
-	debugMode = true,
+	debugMode = false,
 	-- Whether or not the project utilises persistent data via Spyric Loadsave.
 	usesSavedata = false,
 	-- Whether or not the project encodes and protects the save data or not.
@@ -40,7 +40,7 @@ local launchParams = {
 	logoAnchorX = 0.5,
 	logoAnchorY = 0.5,
 
-	text = "© 2025 Roso Games",
+	text = " NIMET TÄHÄN",
 	font = native.systemFontBold,
 	fontSize = 24,
 	textAlign = "center",

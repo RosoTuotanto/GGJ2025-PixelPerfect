@@ -17,6 +17,7 @@ local loadsave, savedata
 
 local player
 local dialogueImage, dialogueText, dialogueBox
+local startMessage
 local action = {}
 local character = {}
 local moveSpeed = 10
@@ -56,7 +57,7 @@ local bgm = {
 }
 
 -- Testaillessa, aseta kaikki äänet pois:
-audio.setVolume( 0 )
+--audio.setVolume( 0 )
 
 -- Asetetaan taustamusiikin äänenvoimakkuus.
 audio.setVolume( 0.2, { channel=1 } )
@@ -182,7 +183,11 @@ local function gameover()
 	gameState = "gameover"
 	stopView()
 
-	print( "Game over!" )
+	local imageloppu = display.newImageRect("assets/images/loppukuva.png", 960, 640 )
+		imageloppu.x = screen.centerX
+		imageloppu.y = screen.centerY
+
+	
 end
 
 
@@ -277,6 +282,8 @@ local function onKeyEvent( event )
 	if event.phase == "down" then
 		action[event.keyName] = true
 
+		display.remove(startMessage)
+		startMessage = nil
 
 		if event.keyName == "space" then
 			if targetID then
@@ -334,7 +341,7 @@ function scene:create( event )
 
 	physics.start()
 	physics.setGravity( 0, 0 )
-	physics.setDrawMode( "hybrid" )
+	-- physics.setDrawMode( "hybrid" )
 
 	local background = display.newImageRect( groupLevel,"assets/images/kartta.png", 1920, 1280 )
 
@@ -423,9 +430,30 @@ function scene:create( event )
 
 	local aita2 = display.newImageRect( groupLevel,"assets/images/fixedpictures/Aita.png", 92, 42 )
 	--character[5]:setFillColor( 0.4, 1, 1, 1 )
-	aita2.x = screen.centerX -800
+	aita2.x = screen.centerX -750
 	aita2.y = screen.centerY -810
 	physics.addBody( aita2, "static"
+	)
+
+	local aita3 = display.newImageRect( groupLevel,"assets/images/fixedpictures/Aita.png", 92, 42 )
+	--character[5]:setFillColor( 0.4, 1, 1, 1 )
+	aita3.x = screen.centerX -650
+	aita3.y = screen.centerY -810
+	physics.addBody( aita3, "static"
+	)
+
+	local aita4 = display.newImageRect( groupLevel,"assets/images/fixedpictures/Aita.png", 92, 42 )
+	--character[5]:setFillColor( 0.4, 1, 1, 1 )
+	aita4.x = screen.centerX -550
+	aita4.y = screen.centerY -810
+	physics.addBody( aita4, "static"
+	)
+
+	local aita5 = display.newImageRect( groupLevel,"assets/images/fixedpictures/Aita.png", 92, 42 )
+	--character[5]:setFillColor( 0.4, 1, 1, 1 )
+	aita5.x = screen.centerX -450
+	aita5.y = screen.centerY -810
+	physics.addBody( aita5, "static"
 	)
 
 	local tree1 = display.newImageRect( groupLevel,"assets/images/fixedpictures/Puu.png", 64, 64 )
@@ -479,9 +507,85 @@ function scene:create( event )
 	local tree7 = display.newImageRect( groupLevel,"assets/images/fixedpictures/Puu.png", 64, 64 )
 	--character[5]:setFillColor( 0.4, 1, 1, 1 )
 	tree7.x = screen.centerX -500
-	tree7.y = screen.centerY -850
+	tree7.y = screen.centerY -890
 	physics.addBody( tree7, "static",
 		{radius = tree7.width*0.5}
+	)
+
+	local tree8 = display.newImageRect( groupLevel,"assets/images/fixedpictures/Puu.png", 64, 64 )
+	--character[5]:setFillColor( 0.4, 1, 1, 1 )
+	tree8.x = screen.centerX -1100
+	tree8.y = screen.centerY -600
+	physics.addBody( tree8, "static",
+		{radius = tree8.width*0.5}
+	)
+
+	local tree9 = display.newImageRect( groupLevel,"assets/images/fixedpictures/Puu.png", 64, 64 )
+	--character[5]:setFillColor( 0.4, 1, 1, 1 )
+	tree9.x = screen.centerX -1200
+	tree9.y = screen.centerY -350
+	physics.addBody( tree9, "static",
+		{radius = tree9.width*0.5}
+	)
+
+	local tree10 = display.newImageRect( groupLevel,"assets/images/fixedpictures/Puu.png", 64, 64 )
+	--character[5]:setFillColor( 0.4, 1, 1, 1 )
+	tree10.x = screen.centerX -1300
+	tree10.y = screen.centerY -400
+	physics.addBody( tree10, "static",
+		{radius = tree10.width*0.5}
+	)
+
+	local tree11 = display.newImageRect( groupLevel,"assets/images/fixedpictures/Puu.png", 64, 64 )
+	--character[5]:setFillColor( 0.4, 1, 1, 1 )
+	tree11.x = screen.centerX -1050
+	tree11.y = screen.centerY +100
+	physics.addBody( tree11, "static",
+		{radius = tree11.width*0.5}
+	)
+
+	local tree12 = display.newImageRect( groupLevel,"assets/images/fixedpictures/Puu.png", 64, 64 )
+	--character[5]:setFillColor( 0.4, 1, 1, 1 )
+	tree12.x = screen.centerX -1000
+	tree12.y = screen.centerY -50
+	physics.addBody( tree12, "static",
+		{radius = tree12.width*0.5}
+	)
+
+	local roskis1 = display.newImageRect( groupLevel,"assets/images/fixedpictures/Roska-Astia.png", 33, 53 )
+	--character[5]:setFillColor( 0.4, 1, 1, 1 )
+	roskis1.x = screen.centerX -900
+	roskis1.y = screen.centerY -530
+	physics.addBody( roskis1, "static"
+	)
+
+	
+	local roskis2 = display.newImageRect( groupLevel,"assets/images/fixedpictures/Roska-Astia.png", 33, 53 )
+	--character[5]:setFillColor( 0.4, 1, 1, 1 )
+	roskis2.x = screen.centerX -1150
+	roskis2.y = screen.centerY -260
+	physics.addBody( roskis2, "static"
+	)
+
+	local penkki1 = display.newImageRect( groupLevel,"assets/images/fixedpictures/Penkki.png", 70, 44 )
+	--character[5]:setFillColor( 0.4, 1, 1, 1 )
+	penkki1.x = screen.centerX -1000
+	penkki1.y = screen.centerY -520
+	physics.addBody( penkki1, "static"
+	)
+
+	local penkki2 = display.newImageRect( groupLevel,"assets/images/fixedpictures/Penkki.png", 70, 44 )
+	--character[5]:setFillColor( 0.4, 1, 1, 1 )
+	penkki2.x = screen.centerX -1000
+	penkki2.y = screen.centerY -250
+	physics.addBody( penkki2, "static"
+	)
+
+	local penkki3 = display.newImageRect( groupLevel,"assets/images/fixedpictures/Penkki.png", 70, 44 )
+	--character[5]:setFillColor( 0.4, 1, 1, 1 )
+	penkki3.x = screen.centerX -1300
+	penkki3.y = screen.centerY -250
+	physics.addBody( penkki3, "static"
 	)
 
 	local talo1 = display.newImageRect( groupLevel,"assets/images/fixedpictures/ORANSSItalo.png", 513, 256)
@@ -572,6 +676,92 @@ function scene:create( event )
 	physics.addBody( lampi2, "static"
 	)
 
+	local kivi1 = display.newImageRect( groupLevel,"assets/images/fixedpictures/Kivi.png", 32, 32 )
+	--character[5]:setFillColor( 0.4, 1, 1, 1 )
+	kivi1.x = screen.centerX -1400
+	kivi1.y = screen.centerY -450
+	physics.addBody( kivi1, "static"
+	)
+
+	local kivi2 = display.newImageRect( groupLevel,"assets/images/fixedpictures/Kivi.png", 32, 32 )
+	--character[5]:setFillColor( 0.4, 1, 1, 1 )
+	kivi2.x = screen.centerX -1370
+	kivi2.y = screen.centerY -440
+	physics.addBody( kivi2, "static"
+	)
+
+	local lyhtypylvas1 = display.newImageRect( groupLevel,"assets/images/fixedpictures/Lyhtypylvas.png", 27, 64 )
+	--character[5]:setFillColor( 0.4, 1, 1, 1 )
+	lyhtypylvas1.x = screen.centerX -1170
+	lyhtypylvas1.y = screen.centerY -450
+	physics.addBody( lyhtypylvas1, "static"
+	)
+
+	local lyhtypylvas2 = display.newImageRect( groupLevel,"assets/images/fixedpictures/Lyhtypylvas.png", 27, 64 )
+	--character[5]:setFillColor( 0.4, 1, 1, 1 )
+	lyhtypylvas2.x = screen.centerX -900
+	lyhtypylvas2.y = screen.centerY -270
+	physics.addBody( lyhtypylvas2, "static"
+	)
+	
+	local lyhtypylvas3 = display.newImageRect( groupLevel,"assets/images/fixedpictures/Lyhtypylvas.png", 27, 64 )
+	--character[5]:setFillColor( 0.4, 1, 1, 1 )
+	lyhtypylvas3.x = screen.centerX -800
+	lyhtypylvas3.y = screen.centerY -160
+	physics.addBody( lyhtypylvas3, "static"
+	)
+
+	local lyhtypylvas4 = display.newImageRect( groupLevel,"assets/images/fixedpictures/Lyhtypylvas.png", 27, 64 )
+	--character[5]:setFillColor( 0.4, 1, 1, 1 )
+	lyhtypylvas4.x = screen.centerX -500
+	lyhtypylvas4.y = screen.centerY -160
+	physics.addBody( lyhtypylvas4, "static"
+	)
+
+
+	local lyhtypylvas5 = display.newImageRect( groupLevel,"assets/images/fixedpictures/Lyhtypylvas.png", 27, 64 )
+	--character[5]:setFillColor( 0.4, 1, 1, 1 )
+	lyhtypylvas5.x = screen.centerX -200
+	lyhtypylvas5.y = screen.centerY -160
+	physics.addBody( lyhtypylvas5, "static"
+	)
+
+	local lyhtypylvas6 = display.newImageRect( groupLevel,"assets/images/fixedpictures/Lyhtypylvas.png", 27, 64 )
+	--character[5]:setFillColor( 0.4, 1, 1, 1 )
+	lyhtypylvas6.x = screen.centerX -50
+	lyhtypylvas6.y = screen.centerY -260
+	physics.addBody( lyhtypylvas6, "static"
+	)
+
+	local lyhtypylvas7 = display.newImageRect( groupLevel,"assets/images/fixedpictures/Lyhtypylvas.png", 27, 64 )
+	--character[5]:setFillColor( 0.4, 1, 1, 1 )
+	lyhtypylvas7.x = screen.centerX -950
+	lyhtypylvas7.y = screen.centerY +150
+	physics.addBody( lyhtypylvas7, "static"
+	)
+
+	local lyhtypylvas8 = display.newImageRect( groupLevel,"assets/images/fixedpictures/Lyhtypylvas.png", 27, 64 )
+	--character[5]:setFillColor( 0.4, 1, 1, 1 )
+	lyhtypylvas8.x = screen.centerX -200
+	lyhtypylvas8.y = screen.centerY -780
+	physics.addBody( lyhtypylvas8, "static"
+	)
+
+	local penkki4 = display.newImageRect( groupLevel,"assets/images/fixedpictures/Penkki.png", 70, 44 )
+	--character[5]:setFillColor( 0.4, 1, 1, 1 )
+	penkki4.x = screen.centerX -550
+	penkki4.y = screen.centerY -150
+	physics.addBody( penkki4, "static"
+	)
+
+	local penkki5 = display.newImageRect( groupLevel,"assets/images/fixedpictures/Penkki.png", 70, 44 )
+	--character[5]:setFillColor( 0.4, 1, 1, 1 )
+	penkki5.x = screen.centerX -150
+	penkki5.y = screen.centerY -770
+	physics.addBody( penkki5, "static"
+	)
+
+
 
 	--characterF.id = "characterName6"
 	-------------------------
@@ -634,6 +824,10 @@ function scene:show( event )
 			fadein = 3000, -- Nostetaan äänet 3s kuluessa nollasta halutulle tasolle.
 			--  onComplete = callbackListener
 		})
+
+		startMessage = display.newImageRect("assets/images/kansikuva.png", 960, 640 )
+		startMessage.x = screen.centerX
+		startMessage.y = screen.centerY
 	end
 end
 
