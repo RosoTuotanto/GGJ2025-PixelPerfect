@@ -48,10 +48,10 @@ return {
     ["characterName3"] = {
         image = "assets/images/ui/surullinen_lapsu.png",
         text = {
-            "Bwaaaaaahhhh!! Dad's so DUMB!! H-he don't wanna take me",
-            "to the amusement park. We.. we NEVER go ANYWHERE!",
+            "Bwaaaaaahhhh!! Dad's so DUMB!!",
+            "H-he don't wanna take me to the amusement park. \n We.. we NEVER go ANYWHERE!",
             "Why doesn't dad like me? Bwaaaaah!",
-            "Mikko in the kindergarten always says I'm stupid",
+            "Mikko in the kindergarten always says I'm stupid...",
             "because I haven't been anywhere or dunno anything!",
             "Dad don't love me because he don't take me to fun places..",
             "Sniff sniff… Kitty.. Y-you are really nice. Let's be best friends?",
@@ -64,16 +64,16 @@ return {
     ["characterName4"] = {
         image = "assets/images/ui/stressaava_teini.png",
         text = {
-            "Oh shit, what to do? What the fuck do I do?",
+            "Oh shit, what should I do? What the fuck do I do?",
             "I'm so dead if they know that I failed again!",
-            "Shit. Should I just fucking flee?",
-            "Why can't I be as smart as they assume I am??",
+            "Shit. Should I just fucking run away?",
+            "Why can't I be as smart as they assume me to be??",
             "Why the hell should I know physics? Or chemistry?",
             "Who needs them anyway? Can't I just play guitar and sing…",
-            "But you always seem to have the courage to say if you don't like something.",
+            "You cats always seem to have the courage to say \n if you don't like something.",
             "I wish I had the courage to tell my parents how I feel.",
             "Or.. Maybe I have? Why not? What bad could happen?",
-            "They'd throw me out? I was already about to leave.",
+            "They'd throw me out? I was already about to leave anyway.",
             "Yeah. Thanks. Or what do you care.",
             "Take this anyway.",
             "[The hooman gave you a carrot.]"
@@ -86,21 +86,22 @@ return {
         text = {
             "What will I ever do without Marko? Who the hell am I even?",
             "I'm so frigging alone..",
-            "I can't do anything without Marko. He could do everything!",
+            "I can't do anything without Marko. He could do anything!",
             "Even in high school when we met. Oh, it was love at first sight!",
             "And our wedding was suuuch a dream!",
-            "We were about to make children, too.",
+            "We were thinking about having children, too.",
             "But then he decided I wasn't pretty anymore. Or something.",
             "My life is so over…",
             "You cats prefer to wander alone, don't ya? How do you do it?",
             "Don't you feel anxious being by yourself? I wish I was that independent.",
-            "Wait.. It's like mom used to tell me. When we were still in touch, that is.",
+            "Wait.. It's like mom used to tell me...",
+            "When we were still in touch, that is.",
             "”Learn to be happy by yourself before you put a ring on your finger.” ",
             "I wonder if I still have my whole life ahead of me",
             "if I just dare to open up my bubble. Oh, mom..",
             "Well, you take this, cutie. As I don't need to diet anymore.",
             "[The hooman gave you a piece of a protein bar.]"
-                
+
         }
     },
 }
