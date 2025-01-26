@@ -446,7 +446,14 @@ function scene:create( event )
 	physics.addBody( talo7, "static"
 	)
 
-		local characterD = display.newImageRect( groupLevel, "assets/images/teinisprite.PNG", 32, 64 )
+	local talo7 = display.newImageRect( groupLevel,"assets/images/fixedpictures/simppelitaloSININEN.png", 336, 256)
+	--characterE:setFillColor( 0.4, 1, 1, 1 )
+	talo7.x = screen.centerX -1250
+	talo7.y = screen.centerY +50
+	physics.addBody( talo7, "static"
+	)
+
+		local characterD = display.newImageRect( groupLevel, "assets/images/teinisprite.png", 32, 64 )
 	--characterD:setFillColor( 0.4, 1, 1, 1 )
 	--display.contentCenterX -1200, display.contentCenterY +200,
 	characterD.x = screen.centerX -1200
@@ -458,20 +465,21 @@ function scene:create( event )
 	)
 	characterD.id = "characterName4"
 
-	local talo7 = display.newImageRect( groupLevel,"assets/images/fixedpictures/simppelitaloSININEN.PNG", 336, 256)
+	
+	local lampi1 = display.newImageRect( groupLevel,"assets/images/fixedpictures/Lampi_ISO.png", 272*2, 77*2)
 	--characterE:setFillColor( 0.4, 1, 1, 1 )
-	talo7.x = screen.centerX -1250
-	talo7.y = screen.centerY +50
-	physics.addBody( talo7, "static"
+	lampi1.x = screen.centerX -520
+	lampi1.y = screen.centerY +50
+	physics.addBody( lampi1, "static"
 	)
 
-	local lampi1 = display.newImageRect( groupLevel,"assets/images/fixedpictures/Lampi_ISO.PNG", 272, 77)
+	local lampi2 = display.newImageRect( groupLevel,"assets/images/fixedpictures/Lampi_PIENI.png", 272*2, 77*2)
 	--characterE:setFillColor( 0.4, 1, 1, 1 )
-	lampi1.x = screen.centerX -950
-	lampi1.y = screen.centerY +50
-	physics.addBody( lampi1, "static",
-		{radius = characterD.width*0.5}
+	lampi2.x = screen.centerX -520
+	lampi2.y = screen.centerY +50
+	physics.addBody( lampi2, "static"
 	)
+
 
 	--characterF.id = "characterName6"
 	-------------------------
