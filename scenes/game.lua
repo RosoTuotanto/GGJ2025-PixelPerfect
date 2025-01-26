@@ -8,6 +8,7 @@ local screen = require("classes.screen")
 local camera = require("classes.camera")
 local physics = require( "physics" )
 local dialogueData = require("data.dialogue")
+local environmentData = require("data.environment")
 local loadsave, savedata
 
 ---------------------------------------------------------------------------
@@ -22,6 +23,10 @@ local groupLevel = display.newGroup()
 local groupUI = display.newGroup()
 local gameState = "normal"
 local targetID
+
+-------------------------------------------------
+--MUSAT
+
 local sfxMeow = audio.loadSound("assets/audio/mjay.wav" )
 local sfxPappa = audio.loadSound("assets/audio/vanamees.wav" )
 local sfxLapsi = audio.loadSound("assets/audio/lappso.wav" )
@@ -30,15 +35,21 @@ local sfxYhisa = audio.loadSound("assets/audio/yh_dadi.wav" )
 local sfxAikunen = audio.loadSound("assets/audio/erotyty.wav" )
 
 
-local backgroundMusic1 = audio.loadStream("assets/audio/savellajit.ogg")
-local backgroundMusic2 = audio.loadStream("assets/audio/")
-local backgroundMusic3 = audio.loadStream("assets/audio/")
-local backgroundMusic4 = audio.loadStream("assets/audio/")
-local backgroundMusic5 = audio.loadStream("assets/audio/")
+local backgroundMusic1 = audio.loadStream("assets/audio/biano1.ogg")
+local backgroundMusic2 = audio.loadStream("assets/audio/biano2.ogg")
+local backgroundMusic3 = audio.loadStream("assets/audio/biano3.ogg")
+local backgroundMusic4 = audio.loadStream("assets/audio/biano4.ogg")
+local backgroundMusic5 = audio.loadStream("assets/audio/biano5.ogg")
+
 audio.setVolume( 0.2, { channel=1 } )
+audio.setVolume( 0.0, { channel=2 } )
+audio.setVolume( 0.0, { channel=3 } )
+audio.setVolume( 0.0, { channel=4 } )
+audio.setVolume( 0.0, { channel=5 } )
 --audio.play( backgroundMusic1 )
 
---[[audio.play( backgroundMusic1,{
+--[[
+audio.play( backgroundMusic1,{
 	channel = 1, -- Määritetään erikseen taustamusiikin kanava.
 	loops = -1, -- Laitetaan kappale soimaan ikuisesti.
 	fadein = 3000, -- Nostetaan äänet 3s kuluessa nollasta halutulle tasolle.
@@ -52,26 +63,29 @@ audio.play( backgroundMusic2,{
 	-- onComplete = callbackListener
 })
 
---audio.play( backgroundMusic3,{
---	channel = 3, -- Määritetään erikseen taustamusiikin kanava.
---	loops = -1, -- Laitetaan kappale soimaan ikuisesti.
---	fadein = 3000, -- Nostetaan äänet 3s kuluessa nollasta halutulle tasolle.
---	-- onComplete = callbackListener
---})
+audio.play( backgroundMusic3,{
+	channel = 3, -- Määritetään erikseen taustamusiikin kanava.
+	loops = -1, -- Laitetaan kappale soimaan ikuisesti.
+	fadein = 3000, -- Nostetaan äänet 3s kuluessa nollasta halutulle tasolle.
+	-- onComplete = callbackListener
+})
 
---audio.play( backgroundMusic4,{
---	channel = 4, -- Määritetään erikseen taustamusiikin kanava.
---	loops = -1, -- Laitetaan kappale soimaan ikuisesti.
---	fadein = 3000, -- Nostetaan äänet 3s kuluessa nollasta halutulle tasolle.
---	-- onComplete = callbackListener
---})
+audio.play( backgroundMusic4,{
+	channel = 4, -- Määritetään erikseen taustamusiikin kanava.
+	loops = -1, -- Laitetaan kappale soimaan ikuisesti.
+	fadein = 3000, -- Nostetaan äänet 3s kuluessa nollasta halutulle tasolle.
+	-- onComplete = callbackListener
+})
+
 
 audio.play( backgroundMusic5,{
 	channel = 5, -- Määritetään erikseen taustamusiikin kanava.
 	loops = -1, -- Laitetaan kappale soimaan ikuisesti.
 	fadein = 3000, -- Nostetaan äänet 3s kuluessa nollasta halutulle tasolle.
 	-- onComplete = callbackListener
-})--]]
+})
+
+--]]
 
 
 
@@ -291,17 +305,7 @@ function scene:create( event )
 	)
 	characterC.id = "characterName3"
 
-	local characterD = display.newImageRect( groupLevel, "assets/images/teinisprite.PNG", 32, 64 )
-	--characterD:setFillColor( 0.4, 1, 1, 1 )
-	--display.contentCenterX -1200, display.contentCenterY +200,
-	characterD.x = screen.centerX -1200
-	characterD.y = screen.centerY +200
-	physics.addBody( characterD, "static",
-		{radius = characterD.width*0.5},
-		{radius = characterD.width*3, isSensor=true}
 
-	)
-	characterD.id = "characterName4"
 
 	local characterE = display.newImageRect( groupLevel,"assets/images/aikuinensprite.PNG", 32, 64 )
 	--characterE:setFillColor( 0.4, 1, 1, 1 )
@@ -315,7 +319,6 @@ function scene:create( event )
 	characterE.id = "characterName5"
 
 
-
 	local characterF = display.newImageRect( groupLevel,"assets/images/Vahtikoira.PNG", 38, 42 )
 	--characterE:setFillColor( 0.4, 1, 1, 1 )
 	characterF.x = screen.centerX -800
@@ -323,7 +326,127 @@ function scene:create( event )
 	physics.addBody( characterF, "static",
 		{radius = characterF.width*0.5}
 	)
+
+	local tree1 = display.newImageRect( groupLevel,"assets/images/fixedpictures/Puu.PNG", 64, 64 )
+	--characterE:setFillColor( 0.4, 1, 1, 1 )
+	tree1.x = screen.centerX -700
+	tree1.y = screen.centerY -800
+	physics.addBody( tree1, "static",
+		{radius = tree1.width*0.5}
+	)
+
+	local talo1 = display.newImageRect( groupLevel,"assets/images/fixedpictures/ORANSSItalo.PNG", 513, 256)
+	--characterE:setFillColor( 0.4, 1, 1, 1 )
+	talo1.x = screen.centerX -1150
+	talo1.y = screen.centerY -900
+	physics.addBody( talo1, "static"
+	)
+
+	local talo2 = display.newImageRect( groupLevel,"assets/images/fixedpictures/VAALEEtalo.PNG", 513, 256)
+	--characterE:setFillColor( 0.4, 1, 1, 1 )
+	talo2.x = screen.centerX -150
+	talo2.y = screen.centerY -900
+	physics.addBody( talo2, "static"
+	)
+
+	local talo3 = display.newImageRect( groupLevel,"assets/images/fixedpictures/VAALEEtalo.PNG", 513, 256)
+	--characterE:setFillColor( 0.4, 1, 1, 1 )
+	talo3.x = screen.centerX +200
+	talo3.y = screen.centerY
+	physics.addBody( talo3, "static"
+	)
+
+	local talo4 = display.newImageRect( groupLevel,"assets/images/fixedpictures/ORANSSItalo.PNG", 513, 256)
+	--characterE:setFillColor( 0.4, 1, 1, 1 )
+	talo4.x = screen.centerX +150
+	talo4.y = screen.centerY -900
+	physics.addBody( talo4, "static"
+	)
+	local talo6 = display.newImageRect( groupLevel,"assets/images/fixedpictures/VIHREEtalo.PNG", 513, 256)
+	--characterE:setFillColor( 0.4, 1, 1, 1 )
+	talo6.x = screen.centerX -450
+	talo6.y = screen.centerY -500
+	physics.addBody( talo6, "static"
+	)
+	local talo5 = display.newImageRect( groupLevel,"assets/images/fixedpictures/VAALEEtalo.PNG", 513, 256)
+	--characterE:setFillColor( 0.4, 1, 1, 1 )
+	talo5.x = screen.centerX -450
+	talo5.y = screen.centerY -300
+	physics.addBody( talo5, "static"
+	)
+
+	local talo7 = display.newImageRect( groupLevel,"assets/images/fixedpictures/simppelitaloSININEN.PNG", 336, 256)
+	--characterE:setFillColor( 0.4, 1, 1, 1 )
+	talo7.x = screen.centerX +150
+	talo7.y = screen.centerY -400
+	physics.addBody( talo7, "static"
+	)
+
+	local talo7 = display.newImageRect( groupLevel,"assets/images/fixedpictures/simppelitaloSININEN.PNG", 336, 256)
+	--characterE:setFillColor( 0.4, 1, 1, 1 )
+	talo7.x = screen.centerX -1250
+	talo7.y = screen.centerY +50
+	physics.addBody( talo7, "static"
+	)
+
+		local characterD = display.newImageRect( groupLevel, "assets/images/teinisprite.PNG", 32, 64 )
+	--characterD:setFillColor( 0.4, 1, 1, 1 )
+	--display.contentCenterX -1200, display.contentCenterY +200,
+	characterD.x = screen.centerX -1200
+	characterD.y = screen.centerY +200
+	physics.addBody( characterD, "static",
+		{radius = characterD.width*0.5},
+		{radius = characterD.width*3, isSensor=true}
+
+	)
+	characterD.id = "characterName4"
+
+	local talo7 = display.newImageRect( groupLevel,"assets/images/fixedpictures/simppelitaloSININEN.PNG", 336, 256)
+	--characterE:setFillColor( 0.4, 1, 1, 1 )
+	talo7.x = screen.centerX -1250
+	talo7.y = screen.centerY +50
+	physics.addBody( talo7, "static"
+	)
+
+	local lampi1 = display.newImageRect( groupLevel,"assets/images/fixedpictures/Lampi_ISO.PNG", 272, 77)
+	--characterE:setFillColor( 0.4, 1, 1, 1 )
+	lampi1.x = screen.centerX -950
+	lampi1.y = screen.centerY +50
+	physics.addBody( lampi1, "static",
+		{radius = characterD.width*0.5}
+	)
+
 	--characterF.id = "characterName6"
+	-------------------------
+	--fixed objects
+
+
+
+	--[[ 	local tree = {}
+
+	local treeData = {
+	{ x=40, y=20 },
+	{ x=80, y=30 },
+	{ x=20, y=30 },
+	}
+
+	local function createTree( x, y )
+		local tree = display.newImageRect("assets/images/fixedpictures/Puu.PNG",x, y, 64, 64 )
+		tree.x = screen.centerX -400
+		tree.y = screen.centerY -500
+		physics.addBody( tree, "static",
+		{radius = tree.width*0.5},
+		{radius = tree.width*1, isSensor=true}
+
+	)
+		return tree
+	end
+
+	for i = 1, #treeData do
+		tree[i] = createTree( treeData[i].x, treeData[i].y )
+	end 
+	]]--
+
 
 
 	sceneGroup:insert( groupLevel)
