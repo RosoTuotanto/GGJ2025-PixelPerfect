@@ -8,7 +8,6 @@ local screen = require("classes.screen")
 local camera = require("classes.camera")
 local physics = require( "physics" )
 local dialogueData = require("data.dialogue")
-local environmentData = require("data.environment")
 local loadsave, savedata
 
 ---------------------------------------------------------------------------
@@ -635,18 +634,18 @@ function scene:create( event )
 	physics.addBody( talo7, "static"
 	)
 
-	local talo7 = display.newImageRect( groupLevel,"assets/images/fixedpictures/simppelitaloSININEN.png", 336, 256)
+	local talo8 = display.newImageRect( groupLevel,"assets/images/fixedpictures/simppelitaloSININEN.png", 336, 256)
 	--character[5]:setFillColor( 0.4, 1, 1, 1 )
-	talo7.x = screen.centerX -1250
-	talo7.y = screen.centerY +50
-	physics.addBody( talo7, "static"
+	talo8.x = screen.centerX -1250
+	talo8.y = screen.centerY +50
+	physics.addBody( talo8, "static"
 	)
 
-	local talo7 = display.newImageRect( groupLevel,"assets/images/fixedpictures/simppelitaloSININEN.png", 336, 256)
+	local talo9 = display.newImageRect( groupLevel,"assets/images/fixedpictures/simppelitaloSININEN.png", 336, 256)
 	--character[5]:setFillColor( 0.4, 1, 1, 1 )
-	talo7.x = screen.centerX -1250
-	talo7.y = screen.centerY +50
-	physics.addBody( talo7, "static"
+	talo9.x = screen.centerX -1250
+	talo9.y = screen.centerY +50
+	physics.addBody( talo9, "static"
 	)
 
 	character[4] = display.newImageRect( groupLevel, "assets/images/teinisprite.png", 32, 64 )
