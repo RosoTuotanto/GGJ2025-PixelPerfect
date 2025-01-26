@@ -321,7 +321,7 @@ function scene:create( event )
 	physics.setGravity( 0, 0 )
 	physics.setDrawMode( "hybrid" )
 
-	local background = display.newImageRect( groupLevel,"assets/images/kartta.PNG", 1920, 1280 )
+	local background = display.newImageRect( groupLevel,"assets/images/kartta.png", 1920, 1280 )
 
 	physics.addBody( background, "static",
 		{
@@ -335,7 +335,7 @@ function scene:create( event )
 		}
 	)
 
-	player = display.newImageRect( groupLevel, "assets/images/kissaSEISOVA.PNG", 32, 32 )
+	player = display.newImageRect( groupLevel, "assets/images/kissaSEISOVA.png", 32, 32 )
 	physics.addBody( player, "dynamic" )
 	player.x = screen.centerX
 	player.y = screen.centerY
@@ -345,7 +345,7 @@ function scene:create( event )
 	player:addEventListener( "collision" )
 
 
-	character[1] = display.newImageRect( groupLevel, "assets/images/vanhussprite.PNG", 32, 64 )
+	character[1] = display.newImageRect( groupLevel, "assets/images/vanhussprite.png", 32, 64 )
 	--character[1]:setFillColor( 1, 0, 1, 1 )
 	character[1].x = screen.centerX -200
 	character[1].y = screen.centerY
@@ -356,7 +356,7 @@ function scene:create( event )
 	)
 	character[1].id = "characterName1"
 
-	character[2] = display.newImageRect( groupLevel, "assets/images/isasprite.PNG", 32, 64 )
+	character[2] = display.newImageRect( groupLevel, "assets/images/isasprite.png", 32, 64 )
 	--character[2]:setFillColor( 0.4, 1, 1, 1 )
 	character[2].x = screen.centerX +200
 	character[2].y = screen.centerY -550
@@ -367,7 +367,7 @@ function scene:create( event )
 	)
 	character[2].id = "characterName2"
 
-	character[3] = display.newImageRect( groupLevel, "assets/images/lapsisprite.PNG", 32, 64 )
+	character[3] = display.newImageRect( groupLevel, "assets/images/lapsisprite.png", 32, 64 )
 	--character[3]:setFillColor( 0.4, 1, 1, 1 )
 	character[3].x = screen.centerX -1200
 	character[3].y = screen.centerY -600
@@ -379,7 +379,7 @@ function scene:create( event )
 	character[3].id = "characterName3"
 
 
-	character[5] = display.newImageRect( groupLevel,"assets/images/aikuinensprite.PNG", 32, 64 )
+	character[5] = display.newImageRect( groupLevel,"assets/images/aikuinensprite.png", 32, 64 )
 	--character[5]:setFillColor( 0.4, 1, 1, 1 )
 	character[5].x = screen.centerX -1000
 	character[5].y = screen.centerY -200
@@ -391,7 +391,7 @@ function scene:create( event )
 	character[5].id = "characterName5"
 
 
-	local characterF = display.newImageRect( groupLevel,"assets/images/Vahtikoira.PNG", 38, 42 )
+	local characterF = display.newImageRect( groupLevel,"assets/images/Vahtikoira.png", 38, 42 )
 	--character[5]:setFillColor( 0.4, 1, 1, 1 )
 	characterF.x = screen.centerX -800
 	characterF.y = screen.centerY -800
@@ -399,7 +399,7 @@ function scene:create( event )
 		{radius = characterF.width*0.5}
 	)
 
-	local tree1 = display.newImageRect( groupLevel,"assets/images/fixedpictures/Puu.PNG", 64, 64 )
+	local tree1 = display.newImageRect( groupLevel,"assets/images/fixedpictures/Puu.png", 64, 64 )
 	--character[5]:setFillColor( 0.4, 1, 1, 1 )
 	tree1.x = screen.centerX -700
 	tree1.y = screen.centerY -800
@@ -407,54 +407,54 @@ function scene:create( event )
 		{radius = tree1.width*0.5}
 	)
 
-	local talo1 = display.newImageRect( groupLevel,"assets/images/fixedpictures/ORANSSItalo.PNG", 513, 256)
+	local talo1 = display.newImageRect( groupLevel,"assets/images/fixedpictures/ORANSSItalo.png", 513, 256)
 	--character[5]:setFillColor( 0.4, 1, 1, 1 )
 	talo1.x = screen.centerX -1150
 	talo1.y = screen.centerY -900
 	physics.addBody( talo1, "static"
 	)
 
-	local talo2 = display.newImageRect( groupLevel,"assets/images/fixedpictures/VAALEEtalo.PNG", 513, 256)
+	local talo2 = display.newImageRect( groupLevel,"assets/images/fixedpictures/VAALEEtalo.png", 513, 256)
 	--character[5]:setFillColor( 0.4, 1, 1, 1 )
 	talo2.x = screen.centerX -150
 	talo2.y = screen.centerY -900
 	physics.addBody( talo2, "static"
 	)
 
-	local talo3 = display.newImageRect( groupLevel,"assets/images/fixedpictures/VAALEEtalo.PNG", 513, 256)
+	local talo3 = display.newImageRect( groupLevel,"assets/images/fixedpictures/VAALEEtalo.png", 513, 256)
 	--character[5]:setFillColor( 0.4, 1, 1, 1 )
 	talo3.x = screen.centerX +200
 	talo3.y = screen.centerY
 	physics.addBody( talo3, "static"
 	)
 
-	local talo4 = display.newImageRect( groupLevel,"assets/images/fixedpictures/ORANSSItalo.PNG", 513, 256)
+	local talo4 = display.newImageRect( groupLevel,"assets/images/fixedpictures/ORANSSItalo.png", 513, 256)
 	--character[5]:setFillColor( 0.4, 1, 1, 1 )
 	talo4.x = screen.centerX +150
 	talo4.y = screen.centerY -900
 	physics.addBody( talo4, "static"
 	)
-	local talo6 = display.newImageRect( groupLevel,"assets/images/fixedpictures/VIHREEtalo.PNG", 513, 256)
+	local talo6 = display.newImageRect( groupLevel,"assets/images/fixedpictures/VIHREEtalo.png", 513, 256)
 	--character[5]:setFillColor( 0.4, 1, 1, 1 )
 	talo6.x = screen.centerX -450
 	talo6.y = screen.centerY -500
 	physics.addBody( talo6, "static"
 	)
-	local talo5 = display.newImageRect( groupLevel,"assets/images/fixedpictures/VAALEEtalo.PNG", 513, 256)
+	local talo5 = display.newImageRect( groupLevel,"assets/images/fixedpictures/VAALEEtalo.png", 513, 256)
 	--character[5]:setFillColor( 0.4, 1, 1, 1 )
 	talo5.x = screen.centerX -450
 	talo5.y = screen.centerY -300
 	physics.addBody( talo5, "static"
 	)
 
-	local talo7 = display.newImageRect( groupLevel,"assets/images/fixedpictures/simppelitaloSININEN.PNG", 336, 256)
+	local talo7 = display.newImageRect( groupLevel,"assets/images/fixedpictures/simppelitaloSININEN.png", 336, 256)
 	--character[5]:setFillColor( 0.4, 1, 1, 1 )
 	talo7.x = screen.centerX +150
 	talo7.y = screen.centerY -400
 	physics.addBody( talo7, "static"
 	)
 
-	local talo7 = display.newImageRect( groupLevel,"assets/images/fixedpictures/simppelitaloSININEN.PNG", 336, 256)
+	local talo7 = display.newImageRect( groupLevel,"assets/images/fixedpictures/simppelitaloSININEN.png", 336, 256)
 	--character[5]:setFillColor( 0.4, 1, 1, 1 )
 	talo7.x = screen.centerX -1250
 	talo7.y = screen.centerY +50
@@ -511,7 +511,7 @@ function scene:create( event )
 	}
 
 	local function createTree( x, y )
-		local tree = display.newImageRect("assets/images/fixedpictures/Puu.PNG",x, y, 64, 64 )
+		local tree = display.newImageRect("assets/images/fixedpictures/Puu.png",x, y, 64, 64 )
 		tree.x = screen.centerX -400
 		tree.y = screen.centerY -500
 		physics.addBody( tree, "static",

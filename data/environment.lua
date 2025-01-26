@@ -7,7 +7,7 @@ local treeData = {
 }
 
 local function createTree( x, y )
-	local tree = display.newImageRect("assets/Puu.PNG",x, y, 64, 64 )
+	local tree = display.newImageRect("assets/images/fixedpictures/Puu.png",x, y, 64, 64 )
 	return tree
 end
 
