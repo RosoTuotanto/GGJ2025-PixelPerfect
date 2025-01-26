@@ -40,8 +40,8 @@ local launchParams = {
 	logoAnchorX = 0.5,
 	logoAnchorY = 0.5,
 
-	text = " NIMET TÄHÄN",
-	font = native.systemFontBold,
+	text = "Arello, Heta, Jade, Katariina, Maiju, Nana, Wipu. Special thanks to Eetu Rantanen <3",
+	font = "assets/fonts/MedodicaRegular.otf",
 	fontSize = 24,
 	textAlign = "center",
 	textWidth = 600,
@@ -49,7 +49,7 @@ local launchParams = {
 	textOffsetY = -10,
 	textAnchorX = 0.5,
 	textAnchorY = 1,
-
+	-- native.systemFontBold, 
 	-- logo & text transition options:
 	showDelay = 250,
 	showTime = 500,

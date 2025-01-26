@@ -183,7 +183,7 @@ local function gameover()
 	gameState = "gameover"
 	stopView()
 
-	local imageloppu = display.newImageRect("assets/images/loppukuva.png", 960, 640 )
+	local imageloppu = display.newImageRect("assets/images/loppukuva.png", 1100, 700 )
 		imageloppu.x = screen.centerX
 		imageloppu.y = screen.centerY
 
@@ -799,7 +799,7 @@ function scene:create( event )
 	sceneGroup:insert( groupLevel)
 
 	camera.init( player, groupLevel )
-	Runtime:addEventListener( "enterFrame", updateView )
+
 	-- stopView()
 end
 
@@ -825,9 +825,11 @@ function scene:show( event )
 			--  onComplete = callbackListener
 		})
 
-		startMessage = display.newImageRect("assets/images/kansikuva.png", 960, 640 )
+		startMessage = display.newImageRect("assets/images/kansikuva.png", 1100, 700 )
 		startMessage.x = screen.centerX
 		startMessage.y = screen.centerY
+
+		Runtime:addEventListener( "enterFrame", updateView )
 	end
 end
 
