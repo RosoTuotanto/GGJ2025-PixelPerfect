@@ -18,8 +18,6 @@ local player
 local dialogueImage, dialogueText, dialogueBox
 local action = {}
 local moveSpeed = 10
-local groupLevel = display.newGroup()
-local groupUI = display.newGroup()
 local gameState = "normal"
 local targetID
 local sfxMeow = audio.loadSound("assets/audio/mjay.wav" )
@@ -28,6 +26,14 @@ local sfxLapsi = audio.loadSound("assets/audio/lappso.wav" )
 local sfxTeini = audio.loadSound("assets/audio/teini.wav" )
 local sfxYhisa = audio.loadSound("assets/audio/yh_dadi.wav" )
 local sfxAikunen = audio.loadSound("assets/audio/erotyty.wav" )
+
+
+-- Display groups and snapshot.
+local snapshot = display.newSnapshot( screen.width, screen.height )
+snapshot.x, snapshot.y = screen.centerX, screen.centerY
+
+local groupLevel = display.newGroup()
+local groupUI = display.newGroup()
 
 
 local backgroundMusic1 = audio.loadStream("assets/audio/savellajit.ogg")
@@ -328,8 +334,13 @@ function scene:create( event )
 
 	sceneGroup:insert( groupLevel)
 	sceneGroup:insert( groupUI)
+	snapshot:toBack()
 
-	camera.init( player, groupLevel )
+	snapshot.fill.effect = "filter.grayscale"
+
+	snapshot.group:insert( groupLevel )
+
+	camera.init( player, groupLevel, snapshot )
 end
 
 ---------------------------------------------------------------------------
