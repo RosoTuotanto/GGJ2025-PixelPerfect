@@ -186,7 +186,7 @@ local function gameover()
 		imageloppu.x = screen.centerX
 		imageloppu.y = screen.centerY
 
-	
+
 end
 
 
@@ -281,8 +281,11 @@ local function onKeyEvent( event )
 	if event.phase == "down" then
 		action[event.keyName] = true
 
-		display.remove(startMessage)
-		startMessage = nil
+		if startMessage then
+			Runtime:addEventListener( "enterFrame", updateView )
+			display.remove(startMessage)
+			startMessage = nil
+		end
 
 		if event.keyName == "space" then
 			if targetID then
@@ -558,7 +561,7 @@ function scene:create( event )
 	physics.addBody( roskis1, "static"
 	)
 
-	
+
 	local roskis2 = display.newImageRect( groupLevel,"assets/images/fixedpictures/Roska-Astia.png", 33, 53 )
 	--character[5]:setFillColor( 0.4, 1, 1, 1 )
 	roskis2.x = screen.centerX -1150
@@ -702,7 +705,7 @@ function scene:create( event )
 	lyhtypylvas2.y = screen.centerY -270
 	physics.addBody( lyhtypylvas2, "static"
 	)
-	
+
 	local lyhtypylvas3 = display.newImageRect( groupLevel,"assets/images/fixedpictures/Lyhtypylvas.png", 27, 64 )
 	--character[5]:setFillColor( 0.4, 1, 1, 1 )
 	lyhtypylvas3.x = screen.centerX -800
@@ -827,8 +830,6 @@ function scene:show( event )
 		startMessage = display.newImageRect("assets/images/kansikuva.png", 1100, 700 )
 		startMessage.x = screen.centerX
 		startMessage.y = screen.centerY
-
-		Runtime:addEventListener( "enterFrame", updateView )
 	end
 end
 
